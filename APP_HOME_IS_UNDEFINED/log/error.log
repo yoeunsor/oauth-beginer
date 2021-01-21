@@ -1,0 +1,98 @@
+2020-05-27 09:14:49 [restartedMain] [ERROR] o.s.b.d.LoggingFailureAnalysisReporter - 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+The bean 'tokenServices', defined in class path resource [com/sokkheang/huo/common/config/oauth2/Oauth2ResourceServerConfig.class], could not be registered. A bean with that name has already been defined in class path resource [com/sokkheang/huo/common/config/oauth2/Oauth2AuthorizationServerConfig.class] and overriding is disabled.
+
+Action:
+
+Consider renaming one of the beans or enabling overriding by setting spring.main.allow-bean-definition-overriding=true
+
+2020-05-27 09:15:52 [restartedMain] [ERROR] o.s.b.d.LoggingFailureAnalysisReporter - 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+The bean 'tokenServices', defined in class path resource [com/sokkheang/huo/common/config/oauth2/Oauth2ResourceServerConfig.class], could not be registered. A bean with that name has already been defined in class path resource [com/sokkheang/huo/common/config/oauth2/Oauth2AuthorizationServerConfig.class] and overriding is disabled.
+
+Action:
+
+Consider renaming one of the beans or enabling overriding by setting spring.main.allow-bean-definition-overriding=true
+
+2020-05-27 09:17:11 [restartedMain] [ERROR] o.s.b.d.LoggingFailureAnalysisReporter - 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+The bean 'tokenServices', defined in class path resource [com/sokkheang/huo/common/config/oauth2/Oauth2ResourceServerConfig.class], could not be registered. A bean with that name has already been defined in class path resource [com/sokkheang/huo/common/config/oauth2/Oauth2AuthorizationServerConfig.class] and overriding is disabled.
+
+Action:
+
+Consider renaming one of the beans or enabling overriding by setting spring.main.allow-bean-definition-overriding=true
+
+2020-05-27 09:17:36 [restartedMain] [ERROR] o.s.b.d.LoggingFailureAnalysisReporter - 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+The bean 'tokenServices', defined in class path resource [com/sokkheang/huo/common/config/oauth2/Oauth2ResourceServerConfig.class], could not be registered. A bean with that name has already been defined in class path resource [com/sokkheang/huo/common/config/oauth2/Oauth2AuthorizationServerConfig.class] and overriding is disabled.
+
+Action:
+
+Consider renaming one of the beans or enabling overriding by setting spring.main.allow-bean-definition-overriding=true
+
+2020-05-27 09:17:43 [restartedMain] [ERROR] o.s.b.d.LoggingFailureAnalysisReporter - 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+The bean 'tokenServices', defined in class path resource [com/sokkheang/huo/common/config/oauth2/Oauth2ResourceServerConfig.class], could not be registered. A bean with that name has already been defined in class path resource [com/sokkheang/huo/common/config/oauth2/Oauth2AuthorizationServerConfig.class] and overriding is disabled.
+
+Action:
+
+Consider renaming one of the beans or enabling overriding by setting spring.main.allow-bean-definition-overriding=true
+
+2020-05-27 09:19:16 [restartedMain] [ERROR] o.s.b.d.LoggingFailureAnalysisReporter - 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+The bean 'tokenServices', defined in class path resource [com/sokkheang/huo/common/config/oauth2/Oauth2ResourceServerConfig.class], could not be registered. A bean with that name has already been defined in class path resource [com/sokkheang/huo/common/config/oauth2/Oauth2AuthorizationServerConfig.class] and overriding is disabled.
+
+Action:
+
+Consider renaming one of the beans or enabling overriding by setting spring.main.allow-bean-definition-overriding=true
+
+2020-05-27 09:21:06 [restartedMain] [ERROR] o.s.b.d.LoggingFailureAnalysisReporter - 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+The bean 'tokenServices', defined in class path resource [com/sokkheang/huo/common/config/oauth2/Oauth2ResourceServerConfig.class], could not be registered. A bean with that name has already been defined in class path resource [com/sokkheang/huo/common/config/oauth2/Oauth2AuthorizationServerConfig.class] and overriding is disabled.
+
+Action:
+
+Consider renaming one of the beans or enabling overriding by setting spring.main.allow-bean-definition-overriding=true
+

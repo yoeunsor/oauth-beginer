@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sokkheang.huo.common.api.common.repository.ImageRepository">
+
+    <resultMap type="Image" id="image">
+        <result property="id"                   column="id"/>
+        <result property="name"                 column="name"/>
+        <result property="uri"                  column="uri"/>
+        <result property="type"                 column="type"/>
+        <result property="size"                 column="size"/>
+        <result property="createby"             column="createby"/>
+        <result property="createdatetime"       column="createdatetime"/>
+        <result property="lastchangeby"         column="lastchangeby"/>
+        <result property="lastchangedatetime"   column="lastchangedatetime"/>
+        <result property="statuscode"           column="statuscode"/>
+    </resultMap>
+
+    <select id="findAll" resultMap="image">
+<![CDATA[
+	SELECT
+		id			        AS 	"id",
+		name			    AS 	"name",
+		uri			        AS 	"uri",
+		type			    AS 	"type",
+		size			    AS 	"size",
+		createby			AS 	"createby",
+		createdatetime		AS 	"createdatetime",
+		lastchangeby		AS 	"lastchangeby",
+		lastchangedatetime	AS 	"lastchangedatetime",
+		statuscode			AS 	"statuscode"
+	FROM  IMAGE
+	limit #{limit} offset #{offset}
+]]>
+</select>
+
+    <select id="findById" resultMap="image">
+<![CDATA[
+	SELECT
+		id			        AS 	"id",
+		name			    AS 	"name",
+		uri			        AS 	"uri",
+		type			    AS 	"type",
+		size			    AS 	"size",
+		createby			AS 	"createby",
+		createdatetime		AS 	"createdatetime",
+		lastchangeby		AS 	"lastchangeby",
+		lastchangedatetime	AS 	"lastchangedatetime",
+		statuscode			AS 	"statuscode"
+	FROM  IMAGE
+	WHERE ID=#{id}
+]]>
+</select>
+
+    <insert id="insertImage" parameterType="Image" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+<![CDATA[
+	INSERT INTO  IMAGE(
+		ID,
+		NAME,
+		URI,
+		TYPE,
+		SIZE,
+		CREATEBY,
+		CREATEDATETIME,
+		LASTCHANGEBY,
+		LASTCHANGEDATETIME,
+		STATUSCODE
+	)
+	VALUES (
+		#{id},
+		#{name},
+		#{uri},
+		#{type},
+		#{size},
+		#{createby},
+		#{createdatetime},
+		#{lastchangeby},
+		#{lastchangedatetime},
+		#{statuscode}
+	)
+]]>
+</insert>
+
+    <update id="updateImage" parameterType="Image">
+<![CDATA[
+	UPDATE  IMAGE
+	SET
+		id		            =	#{id},
+		name		        =	#{name},
+		uri		            =	#{uri},
+		type		        =	#{type},
+		size		        =	#{size},
+		createby		    =	#{createby},
+		createdatetime		=	#{createdatetime},
+		lastchangeby		=	#{lastchangeby},
+		lastchangedatetime	=	#{lastchangedatetime},
+		statuscode		    =	#{statuscode}
+	WHERE ID=#{id}
+]]>
+</update>
+
+    <update id="updateImageStatusCode" parameterType="Image">
+<![CDATA[
+	UPDATE  IMAGE
+	SET
+		statuscode		    =	#{statuscode}
+	WHERE ID=#{id}
+]]>
+</update>
+
+<select id="countImage" resultType="Integer">
+<![CDATA[
+	SELECT
+		 COUNT (*) as Count
+	FROM IMAGE
+		WHERE statuscode = #{statuscode}
+]]>
+</select>
+
+</mapper>

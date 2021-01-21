@@ -1,0 +1,363 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sokkheang.huo.common.api.common.repository.UserRepository">
+
+    <resultMap type="User_Client"       id="user">
+        <result property="id"           column="id"/>
+        <result property="firstname"    column="firstname"/>
+        <result property="lastname"     column="lastname"/>
+        <result property="gender"       column="gender"/>
+        <result property="username"     column="username"/>
+        <result property="password"     column="password"/>
+        <result property="telephone"    column="telephone"/>
+        <result property="email"        column="email"/>
+        <result property="image"        column="image"/>
+        <result property="dateofbirth"  column="dateofbirth"/>
+        <result property="registerdate" column="registerdate"/>
+        <result property="enabled"   	column="enabled"/>
+        <collection property="roles"     resultMap="role"/>
+        <collection property="countries" resultMap="country"/>
+        <collection property="languages" resultMap="language"/>
+        <collection property="images"    resultMap="image"/>
+    </resultMap>
+
+    <resultMap type="Role"              id="role">
+        <result property="id"           column="roleid"/>
+        <result property="role"         column="rolename"/>
+        <result property="statuscode"   column="role_statuscode"/>
+    </resultMap>
+
+    <resultMap type="Country" id="country">
+        <result property="id" column="country_id"/>
+        <result property="countrycode" column="country_code"/>
+        <result property="countryname" column="country_name"/>
+        <result property="statuscode" column="country_statuscode"/>
+    </resultMap>
+
+    <resultMap type="Image"                     id="image">
+        <result property="id"                   column="image_id"/>
+        <result property="name"                 column="image_name"/>
+        <result property="uri"                  column="image_uri"/>
+        <result property="type"                 column="image_type"/>
+        <result property="size"                 column="image_size"/>
+        <result property="createby"             column="createby"/>
+        <result property="createdatetime"       column="createdatetime"/>
+        <result property="lastchangeby"         column="lastchangeby"/>
+        <result property="lastchangedatetime"   column="lastchangedatetime"/>
+        <result property="statuscode"           column="image_statuscode"/>
+    </resultMap>
+
+    <resultMap type="Language"          id="language">
+        <result property="id"           column="language_id"/>
+        <result property="language"     column="language"/>
+        <result property="statuscode"   column="language_statuscode"/>
+    </resultMap>
+
+    <select id="findAllPage" resultMap="user">
+<![CDATA[
+	SELECT 
+		 a.id			                                        AS "id"
+		,a.firstname				                            AS "firstname"
+		,a.lastname				                                AS "lastname"
+		,a.gender		                                        AS "gender"
+		,a.username	                                            AS "username"
+		,a.password	                                            AS "password"
+		,a.telephone	                                        AS "telephone"
+		,a.email		                                        AS "email"
+		,a.dateofbirth	                                        AS "dateofbirth"
+		,TO_CHAR(a.registerdate,'DD-MM-YYYY HH12:MI:SS AM')     AS "registerdate"
+		,c.id                                                   AS "roleid"
+		,c.role						                   	        AS "rolename"
+		,c.statuscode				                            AS "role_statuscode"
+		,a.enabled				                            	AS "enabled"
+		,e."id"													AS "country_id"
+		,e.statuscode					    					AS "country_statuscode"
+		,e.countryname											AS "country_name"
+		,e.countrycode						    				AS "country_code"
+		,g.id									    			AS "image_id"
+		,g.name													AS "image_name"
+		,g.type													AS "image_type"
+		,g.uri										    		AS "image_uri"
+		,g.size													AS "image_size"
+		,g.createdatetime								        AS "createdatetime"
+		,g.lastchangedatetime									AS "lastchangedatetime"
+		,g.lastchangeby											AS "lastchangeby"
+		,g.createby												AS "createby"
+		,g.statuscode											AS "image_statuscode"
+		,i.id													AS "language_id"
+		,i.language												AS "language"
+		,i.statuscode											AS "language_statuscode"
+	FROM User_Client a
+		INNER JOIN user_role     AS b 		    ON a.id 			= b.userId
+		INNER JOIN role          AS c 		    ON c.id 			= b.roleId
+		INNER JOIN user_country  AS d    		ON a.id             = d.user_id
+		INNER JOIN country       AS e			ON d.country_id     = e.id
+		INNER JOIN user_image    AS f	    	ON a.id             = f.user_id
+		INNER JOIN image         AS g			ON f.image_id       = g.id
+		INNER JOIN user_language AS h	        ON a.id				= h.userid
+		INNER JOIN language      AS i			ON h.languageid	    = i.id
+		WHERE a.enabled = #{enabled} and
+			  (
+                  concat(a.firstname,' ',a.lastname)  ~* #{fullname}
+                  OR
+                  concat(a.lastname ,' ',a.firstname) ~* #{fullname}
+			  )
+		ORDER BY a.id DESC
+		limit #{limit} offset #{offset}
+        ]]>
+</select>
+
+    <select id="findById" resultMap="user">
+<![CDATA[
+	SELECT 
+		 a.id			                                        AS "id"
+		,a.firstname				                            AS "firstname"
+		,a.lastname				                                AS "lastname"
+		,a.gender		                                        AS "gender"
+		,a.username	                                            AS "username"
+		,a.password	                                            AS "password"
+		,a.telephone	                                        AS "telephone"
+		,a.email		                                        AS "email"
+		,a.dateofbirth	                                        AS "dateofbirth"
+		,TO_CHAR(a.registerdate,'DD-MM-YYYY HH12:MI:SS AM')     AS "registerdate"
+		,c.id                                                   AS "roleid"
+		,c.role						                   	        AS "rolename"
+		,c.statuscode				                            AS "role_statuscode"
+		,a.enabled				                            	AS "enabled"
+		,e."id"													AS "country_id"
+		,e.statuscode					    					AS "country_statuscode"
+		,e.countryname											AS "country_name"
+		,e.countrycode						    				AS "country_code"
+		,g.id									    			AS "image_id"
+		,g.name													AS "image_name"
+		,g.type													AS "image_type"
+		,g.uri										    		AS "image_uri"
+		,g.size													AS "image_size"
+		,g.createdatetime								        AS "createdatetime"
+		,g.lastchangedatetime									AS "lastchangedatetime"
+		,g.lastchangeby											AS "lastchangeby"
+		,g.createby												AS "createby"
+		,g.statuscode											AS "image_statuscode"
+		,i.id													AS "language_id"
+		,i.language												AS "language"
+		,i.statuscode											AS "language_statuscode"
+	FROM User_Client a
+		INNER JOIN user_role     AS b 		    ON a.id 			= b.userId
+		INNER JOIN role          AS c 		    ON c.id 			= b.roleId
+		INNER JOIN user_country  AS d    		ON a.id             = d.user_id
+		INNER JOIN country       AS e			ON d.country_id     = e.id
+		INNER JOIN user_image    AS f	    	ON a.id             = f.user_id
+		INNER JOIN image         AS g			ON f.image_id       = g.id
+		INNER JOIN user_language AS h	        ON a.id				= h.userid
+		INNER JOIN language      AS i			ON h.languageid	    = i.id
+	WHERE 
+		a.id=#{id} AND a.enabled = #{enabled}
+        ]]>
+</select>
+
+    <select id="findByName" resultMap="user">
+<![CDATA[
+	SELECT 
+		 a.id			                                        AS "id"
+		,a.firstname				                            AS "firstname"
+		,a.lastname				                                AS "lastname"
+		,a.gender		                                        AS "gender"
+		,a.username	                                            AS "username"
+		,a.password	                                            AS "password"
+		,a.telephone	                                        AS "telephone"
+		,a.email		                                        AS "email"
+		,a.dateofbirth	                                        AS "dateofbirth"
+		,TO_CHAR(a.registerdate,'DD-MM-YYYY HH12:MI:SS AM')     AS "registerdate"
+		,c.id                                                   AS "roleid"
+		,c.role						                   	        AS "rolename"
+		,c.statuscode				                            AS "role_statuscode"
+		,a.enabled				                            	AS "enabled"
+	FROM User_Client a
+		INNER JOIN user_role     AS b 		    ON a.id 			= b.userId
+		INNER JOIN role          AS c 		    ON c.id 			= b.roleId
+		
+	WHERE 
+		a.username = #{username}
+        ]]>
+</select>
+
+    <select id="CountUserAvailable" resultType="Integer">
+<![CDATA[
+	SELECT
+		 COUNT(*) as Count
+	FROM User_Client a
+		INNER JOIN user_role     AS b 		    ON a.id 			= b.userId
+		INNER JOIN role          AS c 		    ON c.id 			= b.roleId
+		INNER JOIN user_country  AS d    		ON a.id             = d.user_id
+		INNER JOIN country       AS e			ON d.country_id     = e.id
+		INNER JOIN user_image    AS f	    	ON a.id             = f.user_id
+		INNER JOIN image         AS g			ON f.image_id       = g.id
+		INNER JOIN user_language AS h	        ON a.id				= h.userid
+		INNER JOIN language      AS i			ON h.languageid	    = i.id
+	WHERE a.enabled = #{enabled} and
+			  (
+                  concat(a.firstname,' ',a.lastname)  ~* #{fullname}
+                  OR
+                  concat(a.lastname ,' ',a.firstname) ~* #{fullname}
+			  )
+]]>
+</select>
+
+<select id="CountUser" resultType="Integer">
+<![CDATA[
+	SELECT
+		 COUNT (*) as Count
+	FROM User_Client
+]]>
+</select>
+
+    <insert id="registerUser" parameterType="User_Client" useGeneratedKeys="true">
+<![CDATA[
+		INSERT INTO  User_Client(
+		ID,
+		FIRSTNAME,
+		LASTNAME,
+		GENDER,
+		USERNAME,
+		PASSWORD,
+		TELEPHONE,
+		EMAIL,
+		DATEOFBIRTH,
+		REGISTERDATE,
+		ENABLED
+	)
+	VALUES (
+		#{id},
+		#{firstname},
+		#{lastname},
+		#{gender},
+		#{username},
+		#{password},
+		#{telephone},
+		#{email},
+		#{dateofbirth},
+		now(),
+		#{enabled}
+	)
+        ]]>
+</insert>
+
+    <update id="updateUser" parameterType="User_Client">
+	UPDATE  User_Client
+	SET
+		id				=	#{id},
+		firstname		=	#{firstname},
+		lastname		=	#{lastname},
+		gender			=	#{gender},
+		username		=	#{username},
+		password		=	#{password},
+		telephone		=	#{telephone},
+		email			=	#{email},
+		dateofbirth		=	#{dateofbirth},
+		registerdate	=	NOW(),
+		enabled			=	#{enabled}
+	WHERE ID=#{id}
+</update>
+
+    <insert id="registerUserRole" parameterType="User_Client">
+<![CDATA[
+	INSERT INTO USER_ROLE(
+		userid,
+		roleid
+	)
+	VALUES (
+		#{uid},
+		#{rid}
+	)
+        ]]>
+</insert>
+
+    <update id="updateUserRole" parameterType="User_Client">
+<![CDATA[
+	UPDATE USER_ROLE 
+	SET
+		USERID		=	#{uid},
+		ROLEID		=	#{rid}
+	WHERE USERID	=	#{uid}
+        ]]>
+</update>
+
+    <update id="updateStatusCode" parameterType="User_Client">
+<![CDATA[
+	UPDATE  User_Client
+	SET
+		enabled			=	#{enabled}
+	WHERE ID			=	#{id}
+        ]]>
+</update>
+
+<insert id="registerUserImage" parameterType="User_Client">
+<![CDATA[
+	INSERT INTO  USER_IMAGE(
+		USER_ID,
+		IMAGE_ID
+	)
+	VALUES (
+		#{uid},
+		#{imgid}
+	)
+]]>
+</insert>
+
+<update id="updateUserImage" parameterType="User_Client">
+<![CDATA[
+	UPDATE  USER_IMAGE 
+	SET
+		user_id			=	#{uid},
+		image_id		=	#{imgid}
+	WHERE USER_ID		=	#{uid}
+]]>
+</update>
+
+<insert id="registerUserCountry" parameterType="User_Client">
+<![CDATA[
+	INSERT INTO  USER_COUNTRY(
+		USER_ID,
+		COUNTRY_ID
+	)
+	VALUES (
+		#{uid},
+		#{cid}
+	)
+]]>
+</insert>
+
+<update id="updateUserCountry" parameterType="User_Client">
+<![CDATA[
+	UPDATE  USER_COUNTRY 
+	SET
+		user_id			=	#{uid},
+		country_id		=	#{cid}
+	WHERE USER_ID		=	#{uid}
+]]>
+</update>
+
+<insert id="registerUserLangeuage" parameterType="User_Client">
+<![CDATA[
+	INSERT INTO  USER_LANGUAGE(
+		USERID,
+		LANGUAGEID
+	)
+	VALUES (
+		#{uid},
+		#{lid}
+	)
+]]>
+</insert>
+
+<update id="updateUserLanguage" parameterType="User_Client">
+<![CDATA[
+	UPDATE  USER_LANGUAGE 
+	SET
+		userid			=	#{uid},
+		languageid		=	#{lid}
+	WHERE USERID		=	#{uid}
+]]>
+</update>
+
+</mapper>
